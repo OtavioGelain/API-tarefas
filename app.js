@@ -67,6 +67,24 @@
 
     })
 
+    app.delete("/tarefas/:id", (req, res) => {
+        const id = req.params.id
+        const index = buscarTarefa(id)
+
+        if(index === -1){
+            return res.status(404).json("ERRO: Tarefa nao encontrada")
+        }
+
+        const tarefaExcluida = tarefas[index]
+
+        tarefas.splice(index, 1)
+
+        return res.status(200).json({
+            mensagem: "Tarefa excluida com sucesso",
+            tarefa: tarefaExcluida
+        })
+    })
+
     app.get("/tarefas/:id", (req, res) => {
         const index = buscarTarefa(req.params.id)
 
